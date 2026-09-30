@@ -1,0 +1,442 @@
+:root {
+  --ink: #1d2733;
+  --ink-soft: #55616f;
+  --paper: #eef1f4;
+  --surface: #ffffff;
+  --line: #c9d1da;
+  --pine: #2e6b5a;
+  --pine-soft: #e3efea;
+  --error: #a8322d;
+
+  --radius-sm: 6px;
+  --radius-lg: 12px;
+
+  font-family: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  color: var(--ink);
+}
+
+/* ---------- Configuración general ---------- */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  line-height: 1.5;
+  font-size: 1rem;
+}
+
+/* ---------- Encabezado ---------- */
+
+.topbar {
+  padding: 2rem clamp(1rem, 4vw, 3rem) 1.25rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  letter-spacing: -0.01em;
+}
+
+.topbar p {
+  margin: 0.25rem 0 0;
+  color: var(--ink-soft);
+}
+
+/* ---------- Distribución principal ---------- */
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 3rem) 3rem;
+}
+
+/* ---------- Panel ---------- */
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+
+/* ---------- Formulario ---------- */
+
+fieldset {
+  border: 0;
+  margin: 0 0 1.75rem;
+  padding: 0;
+}
+
+legend {
+  font-weight: 700;
+  font-size: 1.125rem;
+  margin-bottom: 0.75rem;
+  padding: 0;
+}
+
+/* Distribución de campos */
+
+.grid-2,
+.grid-doc {
+  display: grid;
+  gap: 0 1rem;
+}
+
+.grid-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.grid-doc {
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+}
+
+/* Campo */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.9rem;
+}
+
+.field > span {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.field em {
+  font-style: normal;
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+/* ---------- Inputs, select y textarea ---------- */
+
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+/* Descripción del rol */
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* ---------- Estado de enfoque ---------- */
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+button:focus-visible,
+.role input:focus-visible + .role-body {
+  outline: 3px solid var(--pine);
+  outline-offset: 2px;
+}
+
+/* ---------- Campos inválidos ---------- */
+
+.field.invalid input,
+.field.invalid select,
+.field.invalid textarea {
+  border-color: var(--error);
+}
+
+/* ---------- Ayudas y errores ---------- */
+
+.hint {
+  color: var(--ink-soft);
+  font-size: 0.8125rem;
+  margin-top: 0.25rem;
+}
+
+.error {
+  color: var(--error);
+  font-size: 0.8125rem;
+  min-height: 1em;
+  margin-top: 0.2rem;
+}
+
+.error:empty {
+  display: none;
+}
+
+/* ---------- Contraseña ---------- */
+
+.password {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.password input {
+  flex: 1;
+}
+
+/* ---------- Roles ---------- */
+
+.roles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.75rem;
+}
+
+.role {
+  position: relative;
+  cursor: pointer;
+}
+
+.role input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.role-body {
+  display: block;
+  height: 100%;
+  padding: 0.85rem 1rem 0.85rem 2.6rem;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.role-body::before {
+  content: "";
+
+  position: absolute;
+  left: 1rem;
+  top: 1.05rem;
+
+  width: 1rem;
+  height: 1rem;
+
+  border: 1.5px solid var(--ink-soft);
+  border-radius: 3px;
+
+  background: var(--surface);
+}
+
+.role input:checked + .role-body {
+  border-color: var(--pine);
+  background: var(--pine-soft);
+}
+
+.role input:checked + .role-body::before {
+  border-color: var(--pine);
+
+  background:
+    var(--pine)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-7' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E")
+    center / 80%
+    no-repeat;
+}
+
+.role strong {
+  display: block;
+}
+
+.role small {
+  color: var(--ink-soft);
+  font-size: 0.8125rem;
+}
+
+/* ---------- Botones ---------- */
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 1.1rem;
+}
+
+.primary {
+  background: var(--pine);
+  color: #fff;
+  border: 1px solid var(--pine);
+  font-weight: 700;
+}
+
+.primary:hover {
+  background: #245748;
+}
+
+.primary:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+.ghost:hover {
+  border-color: var(--ink-soft);
+}
+
+/* ---------- Acciones ---------- */
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1.25rem;
+}
+
+.form-message {
+  margin: 0 auto 0 0;
+  font-size: 0.9375rem;
+}
+
+.form-message.ok {
+  color: var(--pine);
+  font-weight: 700;
+}
+
+.form-message.bad {
+  color: var(--error);
+}
+
+/* ---------- Listado ---------- */
+
+.list {
+  position: sticky;
+  top: 1rem;
+  max-height: calc(100vh - 2rem);
+  overflow: auto;
+}
+
+.list-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.list-head h2 {
+  margin: 0 0 1rem;
+  font-size: 1.125rem;
+}
+
+.count {
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+}
+
+/* ---------- Lista de usuarios/roles ---------- */
+
+.user-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.user-list li {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.user-list li:last-child {
+  border-bottom: 0;
+}
+
+.user-list .name {
+  font-weight: 700;
+}
+
+.user-list .meta {
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+}
+
+.user-list .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.35rem;
+}
+
+.user-list .tag {
+  font-size: 0.75rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: var(--pine-soft);
+  color: var(--pine);
+}
+
+/* Animación de nuevo elemento */
+
+.user-list li.new {
+  animation: highlight 1.6s ease-out;
+}
+
+.empty {
+  color: var(--ink-soft);
+  padding: 1rem 0;
+}
+
+@keyframes highlight {
+  from {
+    background: var(--pine-soft);
+  }
+
+  to {
+    background: transparent;
+  }
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .list {
+    position: static;
+    max-height: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .grid-2,
+  .grid-doc {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    flex-wrap: wrap;
+  }
+
+  .form-message {
+    width: 100%;
+  }
+}
+
+/* ---------- Accesibilidad ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
